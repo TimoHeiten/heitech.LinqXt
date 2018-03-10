@@ -1,5 +1,6 @@
 ﻿using heitech.LinqXt.Enumerables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,6 +22,9 @@ namespace heitech.LinqXt.Tests.Enumerables
             Assert.AreEqual(3, counter);
         }
 
+
+        // ##########################################################################################
+        // Slicing
         [TestMethod]
         public void Enumerations_SliceWithoutStartEndStepReturnsCollection()
             => Assert.AreEqual(3, Array.Slice().Count());

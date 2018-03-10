@@ -72,11 +72,5 @@ namespace heitech.LinqXt.Enumerables
 
             return result;
         }
-
-        public static IEnumerable<TSource> Zip<TSource>(this IEnumerable<TSource> source, params TSource[] other)
-            => throw new NotImplementedException();
-
-        public static IEnumerable<TSource> ZipWithDefault<TSource>(this IEnumerable<TSource> source, params TSource[] other)
-            => throw new NotImplementedException();
     }
 }
