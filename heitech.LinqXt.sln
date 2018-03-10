@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "heitech.LinqXt", "heitech.L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "heitech.LinqXt.Tests", "heitech.LinqXt.Tests\heitech.LinqXt.Tests.csproj", "{E9F80334-F097-4191-87CA-B153E859886E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "heitech.LinqXt.Example", "heitech.LinqXt.Example\heitech.LinqXt.Example.csproj", "{E5CFF8A7-0589-4190-A5C2-9A774479546E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E9F80334-F097-4191-87CA-B153E859886E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9F80334-F097-4191-87CA-B153E859886E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9F80334-F097-4191-87CA-B153E859886E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5CFF8A7-0589-4190-A5C2-9A774479546E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5CFF8A7-0589-4190-A5C2-9A774479546E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5CFF8A7-0589-4190-A5C2-9A774479546E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5CFF8A7-0589-4190-A5C2-9A774479546E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
