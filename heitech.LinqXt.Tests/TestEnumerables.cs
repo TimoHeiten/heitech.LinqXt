@@ -2,7 +2,7 @@
 
 namespace heitech.LinqXt.Tests
 {
-    internal class TestEnumerables
+    public class TestEnumerables
     {
         internal string[] Array { get; } = new string[] { "a", "b", "c" };
         internal static List<string> List { get; } = new List<string> { "a", "b", "c" };

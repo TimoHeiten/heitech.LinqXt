@@ -6,10 +6,8 @@ using System.Linq;
 namespace heitech.LinqXt.Tests.Enumerables
 {
     [TestClass]
-    public class ExtensionTests
+    public class ExtensionTests : EnumerableTestBase
     {
-        private IEnumerable<string> List => TestEnumerables.List;
-
         [TestMethod]
         public void Extensions_ExtendAddsAllItems()
         {

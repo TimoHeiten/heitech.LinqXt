@@ -7,11 +7,8 @@ using System.Linq;
 namespace heitech.LinqXt.Tests.Enumerables
 {
     [TestClass]
-    public class ConversionTests
+    public class ConversionTests : EnumerableTestBase
     {
-        private readonly TestEnumerables enumerables = new TestEnumerables();
-        internal IEnumerable<string> Array => enumerables.Array;
-
         [TestMethod]
         public void Conversion_ConvertTakesSuppliedConversionFunction()
         {
