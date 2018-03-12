@@ -9,7 +9,7 @@ LinqXt consists of different files in the same namespace (heitech.LinqXt.Enumera
 - ArrayXt (standard Linq with Result as Array if array is input)
 - Slicing (like in python or other dynamic languages)
 
-## Enumerable Dictionary
+## Dictionary LinqXt
 - TrySubstituteKey
 - TrySubstituteValue
 - TrySubstituteKeyValuePair
