@@ -93,5 +93,61 @@ namespace heitech.LinqXt.Enumerables
 
         public static T[] UnionAsArray<T>(this T[] array, IEnumerable<T> union)
             => array.Union(union).ToArray();
+
+
+        public static T[] SwapItemAt<T>(this T[] array, int fromIndex, int toIndex)
+        {
+            var result = new T[array.Length];
+            array.CopyTo(result, 0);
+
+            if (fromIndex < 0) fromIndex = 0;
+            if (toIndex > array.Length - 1) toIndex = array.Length - 1;
+
+            result[toIndex] = array[fromIndex];
+            result[fromIndex] = array[toIndex];
+
+            return result;
+        }
+
+        public static T[] SwapItemAt<T>(this T[] array, Predicate<T> from_item, Predicate<T> to_item)
+        {
+            var result = new T[array.Length];
+            array.CopyTo(result, 0);
+
+            (T from, int index) match_from = (default(T), -1);
+            (T to, int index) match_to = (default(T), -1);
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                T item = array[i];
+                if (from_item(item))
+                {
+                    match_from.from = item;
+                    match_from.index = i;
+                }
+                if (to_item(item))
+                {
+                    match_to.to = item;
+                    match_to.index = i;
+                }
+            }
+
+            if (CanSwap(match_from, match_to, array))
+            {
+                result[match_to.index] = array[match_from.index];
+                result[match_from.index] = array[match_to.index];
+            }
+
+            return result;
+        }
+
+        private static bool CanSwap<T>((T obj, int index) tuple_from,
+            (T obj, int index) tuple_to,
+            T[] array) => tuple_from.index != tuple_to.index
+            && InBounds(tuple_from.index, array) 
+            && InBounds(tuple_to.index, array);
+
+        private static bool InBounds<T>(int index, T[] array)
+            => index >= 0 && index <= array.Length - 1;
     }
 }

@@ -99,5 +99,105 @@ namespace heitech.LinqXt.Tests.Enumerables
 
             Assert.AreEqual(result.Count(), arr_result.Length);
         }
+
+        private int[] swapArray() => new int[] { 0, 1, 2, 3 };
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_ChangesBackward_IndexNew_LT_IndexOld_thatIs()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(fromIndex: 3, toIndex: 0);
+
+            AssertSwap(3, 0, fromArray, array);
+        }
+
+        private void AssertSwap(int before, int after, int[] _old, int[] _new)
+        {
+            Assert.AreEqual(after, _new[before]);
+            Assert.AreEqual(before, _new[after]);
+
+            Assert.AreEqual(before, _old[before]);
+            Assert.AreEqual(after, _old[after]);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItemReturns_NewArray()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(fromIndex: 3, toIndex: 0);
+
+            Assert.AreNotSame(fromArray, array);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_ChangesBackward_IndexNew_GT_IndexOld_thatIs()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(fromIndex: 3, toIndex: 0);
+            AssertSwap(0, 3, fromArray, array);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_Index_Gt_Range_SwapsLastItem()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(fromIndex: 0, toIndex: 112);
+
+            AssertSwap(0, 3, fromArray, array);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_Index_Lt_Zero_usesZero()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(fromIndex: -12, toIndex: 3);
+
+            AssertSwap(0, 3, fromArray, array);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_indexOnPredicate_IfBothPredicates_AreSatisfied()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(x => x == 0, y => y == 3);
+
+            AssertSwap(0, 3, fromArray, array);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_indexOnPredicate_DoesNotSwap_IfNoneIsSatisfied()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(x => x == -11, y => y == 13);
+
+            Assert.AreNotSame(array, fromArray);
+
+            for (int i = 0; i < fromArray.Length; i++)
+                Assert.AreEqual(fromArray[i], array[i]);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SwapItem_indexOnPRedicate_DoesNotSwap_IfOnlyOneIsSatisfied()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(x => x == 0, y => y == 33);
+
+            Assert.AreNotSame(array, fromArray);
+
+            for (int i = 0; i < fromArray.Length; i++)
+                Assert.AreEqual(fromArray[i], array[i]);
+        }
+
+        [TestMethod]
+        public void ArrayXt_SamePredicate_returnsEquvialentArray()
+        {
+            var fromArray = swapArray();
+            var array = fromArray.SwapItemAt(x => x == 0, y => y == 0);
+
+            Assert.AreNotSame(array, fromArray);
+
+            for (int i = 0; i < fromArray.Length; i++)
+                Assert.AreEqual(fromArray[i], array[i]);
+        }
     }
 }

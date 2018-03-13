@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>TimoHeiten</Authors>
+    <Company>heitech</Company>
+    <Product>heitech.LinqXt</Product>
+    <Description>Common Linq Extensions, Slicing support in C# and</Description>
+    <Copyright></Copyright>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/TimoHeiten/heitech.LinqXt</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TimoHeiten/heitech.LinqXt</RepositoryUrl>
+    <PackageReleaseNotes>Common Linq Extensions and Slicing support in C# for IEnumerable&lt;T&gt; and Array</PackageReleaseNotes>
+    <PackageTags>LINQ .NetStandard heitech core crossplattform commutils</PackageTags>
   </PropertyGroup>
 
 </Project>
