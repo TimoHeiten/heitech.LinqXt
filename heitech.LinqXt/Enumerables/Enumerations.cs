@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace heitech.LinqXt.Enumerables
 {
@@ -15,14 +16,25 @@ namespace heitech.LinqXt.Enumerables
                 action(item);
         }
 
-        
-
         public static bool NotAny<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
         {
-            foreach (var item in source)
+            foreach (TSource item in source)
                 if (predicate(item))
                     return false;
             return true;
+        }
+
+        public static bool NotAny<TSource>(this IEnumerable<TSource> source) 
+            => !source.Any();
+
+        public static bool NotAll<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+            => !source.All(x => predicate(x));
+
+        public static IEnumerable<Task> ToTaskList<T>(this IEnumerable<T> source, Func<T, Task> func)
+        {
+            var list = new List<Task>();
+            source.ForAll(x => list.Add(func(x)));
+            return list;
         }
     }
 }

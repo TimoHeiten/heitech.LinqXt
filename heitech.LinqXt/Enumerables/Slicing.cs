@@ -65,5 +65,14 @@ namespace heitech.LinqXt.Enumerables
 
             return result;
         }
+
+        public static IEnumerable<T[]> Split<T>(this IEnumerable<T> source, int chunk_size)
+        {
+            // split source in equal parts, according to chunk size
+            // source.count/chunk_size = 
+            throw new NotImplementedException();
+        }
+
+
     }
 }

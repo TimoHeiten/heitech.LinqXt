@@ -1,7 +1,9 @@
 ﻿using heitech.LinqXt.Enumerables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace heitech.LinqXt.Tests.Enumerables
 {
@@ -37,6 +39,40 @@ namespace heitech.LinqXt.Tests.Enumerables
 
             Assert.IsFalse(notAny);
             Assert.IsTrue(any);
+        }
+
+        [TestMethod]
+        public void Enumerations_NotAll_returns_false_Where_All_Returns_true()
+        {
+            string[] items = new string[] { "1", "2", "3" };
+
+            bool valid_forall = items.All(x => int.TryParse(x, out int i));
+            bool not_valid_forall = items.NotAll(x => int.TryParse(x, out int i));
+
+            Assert.IsTrue(valid_forall);
+            Assert.IsFalse(not_valid_forall);
+        }
+
+        [TestMethod]
+        public async Task Enumerations_ToTask_converts_to_Task_List_for_Task_Whenall()
+        {
+            var toTaskItems = new []{ new ToTaskItem(), new ToTaskItem(), new ToTaskItem(), };
+
+            IEnumerable<Task> tasks = toTaskItems.ToTaskList(x => x.DoWork());
+
+            await Task.WhenAll(tasks);
+            foreach (var to in toTaskItems)
+                Assert.IsTrue(to.WasSet);
+        }
+
+        internal class ToTaskItem
+        {
+            internal bool WasSet;
+            public Task DoWork()
+            {
+                WasSet = true;
+                return Task.CompletedTask;
+            }
         }
     }
 }
