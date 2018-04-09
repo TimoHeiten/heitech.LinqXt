@@ -6,13 +6,17 @@
     <Authors>TimoHeiten</Authors>
     <Company>heitech</Company>
     <Product>heitech.LinqXt</Product>
-    <Description>Common Linq Extensions, Slicing support in C# and</Description>
+    <Description>Common Linq Extensions, Slicing support in C# and String extension methods. Includes also common linq operations as Array returning operations.</Description>
     <Copyright></Copyright>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/TimoHeiten/heitech.LinqXt</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TimoHeiten/heitech.LinqXt</RepositoryUrl>
     <PackageReleaseNotes>Common Linq Extensions and Slicing support in C# for IEnumerable&lt;T&gt; and Array</PackageReleaseNotes>
     <PackageTags>LINQ .NetStandard heitech core crossplattform commutils</PackageTags>
+    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Version>1.1.0</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
 </Project>
