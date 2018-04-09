@@ -8,6 +8,7 @@ LinqXt consists of different files in the same namespace (heitech.LinqXt.Enumera
 - Enumerations (ForAll, NotAny)
 - ArrayXt (standard Linq with Result as Array if array is input)
 - Slicing (like in python or other dynamic languages)
+- Stringextensions: RemoveWhitespace, Shorten, SwapCase, To and FromBytes
 
 ## Dictionary LinqXt
 - TrySubstituteKey
