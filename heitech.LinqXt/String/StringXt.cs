@@ -10,29 +10,68 @@ namespace heitech.LinqXt.String
 {
     public static class StringXt
     {
-        public static string ReplaceWhitespaceWith(this string source, char withChar)
+        public static string ReplaceWhitespaceWith(this string source, char? withChar = null)
         {
-            throw new NotImplementedException();
+            if (withChar.HasValue)
+            {
+                char[] array = source.ToCharArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    char _char = array[i];
+                    if (Char.IsWhiteSpace(_char))
+                        array[i] = withChar.Value;
+                }
+                return new string(array);
+            } 
+            else
+                return new string(source.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray());
         }
 
-        public static string RemoveIndexFromRight(this string source, int start, int amount=0)
+        public static string RemoveIndexFromRight(this string source, int amount=0)
         {
-            throw new NotImplementedException();
+            char[] array = source.ToCharArray();
+            int count = array.Length - Math.Abs(amount);
+            if (count < 0)
+                count = 0;
+
+            var output = new char[count];
+
+            for (int i = 0; i < output.Length; i++)
+                output[i] = array[i];
+
+            return new string(output);
         }
 
-        public static string RemoveIndexFromLeft(this string source, int start, int amount=0)
+        public static string RemoveIndexFromLeft(this string source, int amount=0)
         {
-            throw new NotImplementedException();
+            amount = Math.Abs(amount);
+            if (amount > source.Length)
+                amount = source.Length;
+
+            return source.Substring(amount, source.Length-amount);
         }
 
-        public static string RemoveAll(this string source, char _char)
+        public static string RemoveAll(this string source, params char[] _char)
         {
-            throw new NotImplementedException();
+            if (_char.Length == 0)
+                return source;
+
+            var list = new List<char>();
+            for (int i = 0; i < source.Length; i++)
+            {
+                char c = source[i];
+                if (_char.NotAny(x => x == c))
+                    list.Add(c);
+            }
+            return new string(list.ToArray());
         }
 
-        public static string Shorten(this string source, int charAmount=80, string shortenedExpression="...")
+        public static string Shorten(this string source, int charAmount=77, string shortenedExpression="...")
         {
-            throw new NotImplementedException();
+            if (source.Length < charAmount)
+                return source;
+
+            return $"{source.Substring(0, charAmount)}{shortenedExpression}";
         }
 
         public static string SwapCase(this string source)
@@ -85,5 +124,9 @@ namespace heitech.LinqXt.String
 
         public static string Base64Decode(this string base64String)
             => UTF8.GetString(FromBase64String(base64String));
+
+        public static bool IsNullOrEmpty(this string source)
+            => string.IsNullOrEmpty(source);
+
     }
 }

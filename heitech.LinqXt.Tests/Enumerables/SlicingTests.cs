@@ -1,5 +1,6 @@
 ﻿using heitech.LinqXt.Enumerables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace heitech.LinqXt.Tests.Enumerables
@@ -94,19 +95,39 @@ namespace heitech.LinqXt.Tests.Enumerables
         [TestMethod]
         public void Slicing__Split_ReturnsEquallyParted_CollectionChunks()
         {
-            Assert.Fail();
+            IEnumerable<string> input = new[] { "abc", "cde", "efg", "hij", "klm", "nop" };
+
+            IEnumerable<string[]> output = input.Split(2);
+
+            Assert.AreEqual(3, output.Count());
+            Assert.AreEqual(2, output.ElementAt(0).Count());
+            Assert.AreEqual(2, output.ElementAt(1).Count());
+            Assert.AreEqual(2, output.ElementAt(2).Count());
         }
 
         [TestMethod]
         public void Slicing_Split_onZeroChunkSize_ReturnsSingleArrayCollection()
         {
-            Assert.Fail();
+            IEnumerable<string> input = new[] { "abc", "cde", "efg" };
+            Assert.AreEqual(1, input.Split(0).Count());
         }
 
         [TestMethod]
-        public void Slicing_Split_Returns()
+        public void Slicing_Split_Chungksize_Exceeds_CollectionSize_Returns_SingleArray()
         {
-            Assert.Fail();
+            IEnumerable<string> input = new[] { "abc", "cde", "efg" };
+            Assert.AreEqual(1, input.Split(4).Count());
+        }
+
+        [TestMethod]
+        public void Slicing_Split_Returns_equallyParted_if_chunksize_is_not_divideable_without_rest()
+        {
+            IEnumerable<string> input = new[] { "abc", "cde", "efg", "hij", "klm", "nop" };
+            IEnumerable<string[]> output = input.Split(4);
+
+            Assert.AreEqual(2, output.Count());
+            Assert.AreEqual(4, output.ElementAt(0).Count());
+            Assert.AreEqual(2, output.ElementAt(1).Count());
         }
     }
 }
