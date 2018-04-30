@@ -65,6 +65,20 @@ namespace heitech.LinqXt.Tests.Enumerables
                 Assert.IsTrue(to.WasSet);
         }
 
+        [TestMethod]
+        public void WithIndex_Injects_Index_into_Provided_Action()
+        {
+            var array = new[] { "one", "two", "three", "four" };
+            array.EnumerateWithIndex(CountAssert);
+        }
+
+        private int counter;
+        private void CountAssert(int i, string item)
+        {
+            Assert.AreEqual(counter, i);
+            counter++;
+        }
+
         internal class ToTaskItem
         {
             internal bool WasSet;

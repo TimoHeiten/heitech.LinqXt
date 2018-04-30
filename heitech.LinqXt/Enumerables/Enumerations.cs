@@ -36,5 +36,18 @@ namespace heitech.LinqXt.Enumerables
             source.ForAll(x => list.Add(func(x)));
             return list;
         }
+
+        // do: 
+        // enumerate with index
+
+        public static void EnumerateWithIndex<T>(this IEnumerable<T> source, Action<int, T> _do)
+        {
+            int index = 0;
+            foreach (var item in source)
+            {
+                _do(index, item);
+                index++;
+            }
+        }
     }
 }
