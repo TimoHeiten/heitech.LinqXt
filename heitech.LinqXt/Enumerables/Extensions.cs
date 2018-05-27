@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace heitech.LinqXt.Enumerables
 {
@@ -28,6 +29,31 @@ namespace heitech.LinqXt.Enumerables
                     list.Add(x);
             });
             return list;
+        }
+
+        /// <summary>
+        /// Removes the last items of a given collection.
+        /// </summary>
+        public static IEnumerable<TSource> RemoveLastItems<TSource>(this IEnumerable<TSource> source, int? index = null)
+        {            
+            if (index.HasValue == false)
+                return source;
+
+            int count = GetCountOfSource(source);
+            if (count < index)
+                return source.Skip(count);
+
+            return source.Reverse().Skip(index.Value).Reverse();
+        }
+
+        private static int GetCountOfSource<TSource>(IEnumerable<TSource> source)
+        {
+            if (source is IList<TSource> list)
+                return list.Count;
+            else if (source is Array array)
+                return array.Length;
+            else
+                return source.Count();
         }
     }
 }
