@@ -5,17 +5,21 @@ namespace heitech.LinqXt.Mappings
 {
     public static class MappingXt
     {
-        public static bool TrySubstituteKey<K, V>(this IDictionary<K, V> dictionary, K key, K sndKey)
+        ///<summary>
+        /// Try substitute a key with a new value, but let the value be intact.
+        ///</summary>
+        public static bool TrySubstituteKey<K, V>(this IDictionary<K, V> dictionary, K old, K @new)
         {
-            if (dictionary.TryGetValue(key, out V val))
+            if (dictionary.TryGetValue(old, out V val))
             {
-                dictionary.Remove(key);
-                dictionary.Add(sndKey, val);
+                dictionary.Remove(old);
+                dictionary.Add(@new, val);
                 return true;
             }
             else
                 return false;
         }
+
         /// <summary>
         /// Uses default Equals method for value
         /// </summary>
@@ -47,6 +51,9 @@ namespace heitech.LinqXt.Mappings
             return false;
         }
 
+        ///<summary>
+        /// convert Map to Tuple Array
+        ///</summary>
         public static (K key, V value)[] ToTupleArray<K, V>(this IDictionary<K, V> dictionary)
         {
             var list = new List<(K k, V v)>();

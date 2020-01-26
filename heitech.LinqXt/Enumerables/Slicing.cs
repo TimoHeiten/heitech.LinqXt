@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace heitech.LinqXt.Enumerables
@@ -8,64 +7,30 @@ namespace heitech.LinqXt.Enumerables
     {
         /// <summary>
         /// Returns a slice of the enumerable.
-        /// see docs on how it works (or see python)
         /// </summary>
         public static IEnumerable<TSource> Slice<TSource>(this IEnumerable<TSource> source, int? start = null, int? end = null, int? step = null)
-            => source.ToArray().SliceArray(start, end, step);
+        {
+            return new Slice<TSource>(start, end, step, source.ToArray());
+        }
 
+        ///<summary>
+        /// Slice an array
+        /// <para />
+        /// 1.) all null returns same array
+        /// <para />
+        /// 2.) start and end slice the array - [0, 1, 2, 3].Slice(1,2) --> [1]
+        /// <para />
+        /// negative values are also supported. See hte documentation for full explanation at https://t-heiten.net/best-linq-extension
+        ///</summary>
         public static T[] SliceArray<T>(this T[] array, int? start = null, int? end = null, int? step = null)
         {
-            int length = array.Length;
-            var resultArray = new List<T>();
-
-            int _end = Adjust(end, length, length);
-            int _start = Adjust(start, length, 0);
-            int _step = step ?? 1;
-
-            if (_start > array.Length)
-                _start = 0;
-            if (_step != 1)
-            {
-                int index = 0;
-                if (_step < 0)
-                    array = array.ReverseAsArray();
-                foreach (T item in array)
-                {
-                    if (index == 0 || index % step == 0)
-                        resultArray.Add(item);
-                    index++;
-                }
-            }
-            else
-            {
-                for (int i = _start; i < _end; i++)
-                    resultArray.Add(array[i]);
-            }
-            return resultArray.ToArray();
+            var slice = new Slice<T>(start, end, step, array);
+            return slice.ToArray();
         }
 
-        private static int Adjust(int? index, int arrayLength, int fallback)
-        {
-            if (index == null)
-                return fallback;
-
-            int _index = index.Value;
-            int result = _index;
-
-            bool isNegative = _index < 0;
-            if (isNegative)
-                result = arrayLength + _index;
-
-            if (Math.Abs(_index) > arrayLength)
-            {
-                result = arrayLength;
-                if (isNegative)
-                    result = 0;
-            }
-
-            return result;
-        }
-
+        ///<summary>
+        /// Split into chunksize applied array chunks
+        ///</summary>
         public static IEnumerable<T[]> Split<T>(this IEnumerable<T> source, int chunk_size)
         {
             var list = new List<T[]>();

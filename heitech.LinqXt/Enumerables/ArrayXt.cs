@@ -6,6 +6,9 @@ namespace heitech.LinqXt.Enumerables
 {
     public static class ArrayXt
     {
+        ///<summary>
+        /// Applies Where filter and converts back to array
+        ///</summary>
         public static T[] WhereAsArray<T>(this T[] array, Func<T, bool> func)
         {
             var list = new List<T>();
@@ -18,6 +21,9 @@ namespace heitech.LinqXt.Enumerables
             return list.ToArray();
         }
 
+        ///<summary>
+        /// Convert from T to R as an Array
+        ///</summary>
         public static R[] ConvertAsArray<T, R>(this T[] array, Func<T, R> conversion)
         {
             var list = new List<R>();
@@ -26,6 +32,9 @@ namespace heitech.LinqXt.Enumerables
             return list.ToArray();
         }
 
+        ///<summary>
+        /// Substitute a value where the predicate returns true
+        ///</summary>
         public static T[] SubstitueAsArray<T>(this T[] array, Predicate<T> pred, T substitute)
         {
             for (int i = 0; i < array.Length; i++)
@@ -36,6 +45,9 @@ namespace heitech.LinqXt.Enumerables
             return array;
         }
 
+        ///<summary>
+        /// append to an array in place
+        ///</summary>
         public static T[] AppendAsArray<T>(this T[] array, params T[] append)
         {
             var list = array.ToList();
@@ -43,6 +55,9 @@ namespace heitech.LinqXt.Enumerables
             return list.ToArray();
         }
 
+        ///<summary>
+        /// Cast with Array
+        ///</summary>
         public static C[] CastAsArray<T, C>(this T[] array)
         {
             var list = new List<C>();
@@ -95,6 +110,9 @@ namespace heitech.LinqXt.Enumerables
             => array.Union(union).ToArray();
 
 
+        ///<summary>
+        /// Swap places of items inside the array by index
+        ///</summary>
         public static T[] SwapItemAt<T>(this T[] array, int fromIndex, int toIndex)
         {
             var result = new T[array.Length];
@@ -109,6 +127,9 @@ namespace heitech.LinqXt.Enumerables
             return result;
         }
 
+        ///<summary>
+        /// Swap an item inside the array to which the predicates apply or leave as is
+        ///</summary>
         public static T[] SwapItemAt<T>(this T[] array, Predicate<T> from_item, Predicate<T> to_item)
         {
             var result = new T[array.Length];

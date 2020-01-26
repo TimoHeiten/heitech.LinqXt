@@ -38,15 +38,31 @@ namespace heitech.LinqXt.Tests.Enumerables
 
         [TestMethod]
         public void Conversions_ZipZipsTwoSameCollectionsToOneWithAllItems()
-            => Assert.ThrowsException<NotImplementedException>(() => Array.Zip(null));
+        {
+            var result = Array.Zip(TestEnumerables.Numbers(), -1);
+
+            Assert.AreEqual(3, result.Count());
+            var array = result.ToArray();
+            var (s1, sink1) = array[0];
+            Assert.AreEqual(("a", 1), array[0]);
+            Assert.AreEqual(("b", 2), array[1]);
+            Assert.AreEqual(("c", 3), array[2]);
+        }
 
         [TestMethod]
         public void Conversions_ZipZipsTwoNotEquallyCountedCollectionsFillsAllOfSmallerCountWithDefault()
-            => Assert.ThrowsException<NotImplementedException>(() => Array.Zip(null));
-
-        [TestMethod]
-        public void Conversions_ZipZipsTwoNotEquallyCountedCollectionsFillsAllOfSmallerCountWith_UserSpecified_Default()
-            => Assert.ThrowsException<NotImplementedException>(() => Array.Zip(null));
+        {
+            var result = TestEnumerables.Numbers().Extend(4, 5, 6).Zip(Array, "no-item");
+            Assert.AreEqual(6, result.Count());
+            var array = result.ToArray();
+            var (s1, sink1) = array[0];
+            Assert.AreEqual((1, "a"), array[0]);
+            Assert.AreEqual((2, "b"), array[1]);
+            Assert.AreEqual((3, "c"), array[2]);
+            Assert.AreEqual((4, "no-item"), array[3]);
+            Assert.AreEqual((5, "no-item"), array[4]);
+            Assert.AreEqual((6, "no-item"), array[5]);
+        }
 
         [TestMethod]
         public void Conversion_CombineReturnsEnumerableWithTupleOfSameCount()

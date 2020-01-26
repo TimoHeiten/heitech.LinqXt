@@ -21,9 +21,32 @@ namespace heitech.LinqXt.Enumerables
                     yield return item;
         }
 
-        public static IEnumerable<TSource> Zip<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other, TSource fallback= default(TSource))
-            => throw new NotImplementedException();
+        ///<summary>
+        /// Combine two collections to one with pairs of each item
+        /// <para>E.g. (1,2,3) and ["a","b"] lead to [(1,"a"), (2, "b"), (3, null) ]</para>
+        /// if other.Count > source.Count those items are ignored
+        ///</summary>
+        public static IEnumerable<(TSource, TSink)> Zip<TSource, TSink>(this IEnumerable<TSource> source, IEnumerable<TSink> other, TSink fallback= default(TSink))
+        {
+            var list = new List<(TSource, TSink)>();
+            int countSink = other.Count();
+            int countSource = source.Count();
+            for (int i = 0; i < countSource; i++)
+            {
+                TSource s = source.ElementAt(i);
+                TSink sink = fallback;
+                if (i < countSink)
+                {
+                    sink = other.ElementAt(i);
+                }
+                list.Add((s, sink));
+            }
+            return list;
+        }
 
+        ///<summary>
+        /// Merge two collections with a default or specified item if the other source has fewer items
+        ///</summary>
         public static IEnumerable<(TSource first, TSndSource snd)> CombineToOne<TSource, TSndSource>(this IEnumerable<TSource> source, IEnumerable<TSndSource> other, TSource fallback = default(TSource), TSndSource fallbackSnd = default(TSndSource))
         {
             TSndSource[] _sndSource = other.ToArray();
