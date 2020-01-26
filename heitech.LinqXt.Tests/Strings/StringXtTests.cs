@@ -37,7 +37,7 @@ namespace heitech.LinqXt.Tests.Strings
         [DataTestMethod]
         public void StringXt_RemoveIndexFromLeft(int index, string input, string expected)
         {
-            string actual = input.RemoveIndexFromLeft(index);
+            string actual = input.RemoveCharsFromLeft(index);
             Assert.AreEqual(expected, actual);
         }
 
@@ -48,7 +48,7 @@ namespace heitech.LinqXt.Tests.Strings
         [DataTestMethod]
         public void StringXt_RemoveIndexFromRight(int index, string _same, string expected)
         {
-            string actual = _same.RemoveIndexFromRight(index);
+            string actual = _same.RemoveCharsFromRight(index);
             Assert.AreEqual(expected, actual);
         }
 
@@ -110,11 +110,28 @@ namespace heitech.LinqXt.Tests.Strings
             Assert.AreEqual("toBytes", bytes.FromBytes());
         }
 
-        [TestMethod]
-        public void StringXt_IsNullOrEmpty()
+        [DataRow("", true)]
+        [DataRow(null, true)]
+        [DataRow("abc", false)]
+        [DataRow(" ", false)]
+        [DataRow("\t", false)]
+        [DataTestMethod]
+        public void StringXt_IsNullOrEmpty(string i, bool expected)
         {
-            Assert.IsTrue("".IsNullOrEmpty());
-            Assert.IsFalse("abc".IsNullOrEmpty());
+            bool result = i.IsNullOrEmpty();
+            Assert.AreEqual(expected, result);
+        }
+
+        [DataRow("", true)]
+        [DataRow(" ", true)]
+        [DataRow("\t", true)]
+        [DataRow(null, true)]
+        [DataRow("abc", false)]
+        [DataTestMethod]
+        public void StringXt_IsNullOrWhiteSpace(string i, bool expected)
+        {
+            bool result = i.IsNullOrWhiteSpace();
+            Assert.AreEqual(expected, result);
         }
 
         [DataRow("UpAndDown", "uPaNDdOWN")]
@@ -129,6 +146,15 @@ namespace heitech.LinqXt.Tests.Strings
             string expected = "1,2,3";
             string result = new[] { 1, 2, 3 }.FlattenSequence(x => x.ToString());
             Assert.AreEqual(expected, result);
+        }
+
+        [DataRow("PascalCase", "pascal.case", '.')]
+        [DataRow("ABC", "a_b_c", '_')]
+        [DataTestMethod]
+        public void ChangeCasing(string input, string expected, char sep)
+        {
+             var result = input.CasingToSeperator(sep);
+             Assert.AreEqual(expected, result);
         }
     }
 }
